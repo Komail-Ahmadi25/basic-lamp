@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/output.css">
+</head>
+
+<body>
+    <div class="transition-all duration-700">
+        <h1 class="font-bold text-4xl pl-[120px]">My First JavaScript</h1>
+        <p class="pt-[50px] pl-[120px]">Here, a JavaScript Changes The Value Of The Src(Source) Attribute Of An Image.
+        </p>
+        <img id="myImg1" src="../pic_bulbon.gift.PNG" class="w-[100px] h-[180px]">
+        <img id="myImg2" src="../pic_bulbof.gift1.PNG" class="hidden w-[100px] h-[200px]">
+        <p>
+        <div class="gap-4">
+            <button type="button" id="on" class="border bg-gray-100 rounded-md hover:bg-gray-50 p-1">Light
+                On</button>
+            <button type="button" id="off" class=" border bg-gray-100 rounded-md hover:bg-gray-50 p-1">Light
+                Off</button>
+
+        </div>
+        </p>
+    </div>
+    <script>
+        const on = document.getElementById("on");
+        const off = document.getElementById("off");
+        const myImg1 = document.getElementById("myImg1");
+        const myImg2 = document.getElementById("myImg2");
+        on.addEventListener("click", () => {
+            myImg2.style.display = "block";
+            myImg1.style.display = "none";
+        })
+        off.addEventListener("click", () => {
+            myImg2.style.display = "none";
+            myImg1.style.display = "block";
+        })
+    </script>
+</body>
+
+</html>
