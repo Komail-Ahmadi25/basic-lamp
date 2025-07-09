@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ماین‌کرفت ساده</title>
+    <link rel="stylesheet" href="./src/output.css">
+</head>
+
+<body class="bg-gray-900 text-white p-4 flex flex-col items-center">
+
+    <h1 class="text-2xl font-bold mb-4">🧱 بازی ساده ماین‌کرفت</h1>
+
+    <div class="mb-4">
+        <label for="blockType" class="mr-2">نوع بلوک:</label>
+        <select id="blockType" class="text-black p-1 rounded">
+            <option value="grass">چمن</option>
+            <option value="dirt">خاک</option>
+            <option value="stone">سنگ</option>
+            <option value="wood">چوب</option>
+            <option value="empty">پاک کردن</option>
+        </select>
+    </div>
+
+    <div id="grid" class="grid grid-cols-10 gap-1"></div>
+
+    <script>
+        const grid = document.getElementById("grid");
+        const blockType = document.getElementById("blockType");
+
+        const blockClasses = {
+            grass: "bg-green-500",
+            dirt: "bg-yellow-700",
+            stone: "bg-gray-400",
+            wood: "bg-yellow-600",
+            empty: "bg-transparent border border-gray-600"
+        };
+
+        // ساخت 100 بلوک (10×10)
+        for (let i = 0; i < 100; i++) {
+            const cell = document.createElement("div");
+            cell.className = `w-10 h-10 ${blockClasses.empty} transition-colors duration-200`;
+            cell.dataset.type = "empty";
+
+            cell.addEventListener("click", () => {
+                const type = blockType.value;
+                cell.className = `w-10 h-10 ${blockClasses[type]} transition-colors duration-200`;
+                cell.dataset.type = type;
+                saveGrid();
+            });
+
+            grid.appendChild(cell);
+        }
+
+        // ذخیره وضعیت در localStorage
+        function saveGrid() {
+            const data = [];
+            [...grid.children].forEach(cell => {
+                data.push(cell.dataset.type);
+            });
+            localStorage.setItem("minecraftGrid", JSON.stringify(data));
+        }
+
+        // بازیابی اطلاعات ذخیره‌شده
+        function loadGrid() {
+            const data = JSON.parse(localStorage.getItem("minecraftGrid"));
+            if (data && data.length === 100) {
+                [...grid.children].forEach((cell, index) => {
+                    const type = data[index];
+                    cell.dataset.type = type;
+                    cell.className = `w-10 h-10 ${blockClasses[type]} transition-colors duration-200`;
+                });
+            }
+        }
+
+        window.onload = loadGrid;
+
+    </script>
+</body>
+
+</html>
